@@ -1,13 +1,23 @@
-Dependencies: Python 3.10.6 + requirements.txt + a local version of gsutil 5.34 >
+# Thesis Repository: Fuzzability analysis of deep bugs
 
-              Data\OSV needs the raw JSON files from the OSV dataset
-              Data\OSS-Fuzz needs a copy of the oss-fuzz inside the structreu should be the following: 
-              Data\OSS-Fuzz\oss-fuzz\...
-              
-              Create and add your own GitHub access token to these files:
+This repository contains the datasets, scripts, and some intermediary data used during the writing of my thesis.
 
-              Scripts\4. Extraction of GitHub commits\UpdateDatesWithGithub.py 
-              Scripts\6. Removal of fuzzed entries\RecheckGithubPar.py
+## Prerequisites and Dependencies
+* **Python:** `3.10.6`
+* **Google Cloud SDK:** `gsutil` version `5.34` (local installation required)
+* **Python Packages:** Install via `pip install -r requirements.txt`
 
-UsedData contains the relevant JSONs that were used during the writing of thesis, the Datasets and some JSON files created in the steps between
-were to large to push but are avaible at request 
+## Data Structure Setup
+Before running the scripts, you must set up the local data directories as follows:
+
+* `Data\OSV\` - Needs the raw JSON files downloaded from the OSV dataset.
+* `Data\OSS-Fuzz\` - Needs a clone of the `oss-fuzz` repository structured like this:
+  `Data\OSS-Fuzz\oss-fuzz\...`
+
+> **Note on Large Files:** The `UsedData` directory contains the relevant JSONs used in the final thesis. However, the full datasets and some larger intermediary JSON files were too large to push to GitHub. They are available upon request.
+
+## Configuration and GitHub Access Tokens
+You must generate your own **GitHub Personal Access Token** and add it to the following script files before execution:
+1. `Scripts\4. Extraction of GitHub commits\UpdateDatesWithGithub.py`
+2. `Scripts\6. Removal of fuzzed entries\RecheckGithubPar.py`
+
