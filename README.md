@@ -1,4 +1,4 @@
-Dependencies: Python 3.10.6 + requirements.txt 
+Dependencies: Python 3.10.6 + requirements.txt + a local version of gsutil 5.34 >
 
               Data\OSV needs the raw JSON files from the OSV dataset
               Data\OSS-Fuzz needs a copy of the oss-fuzz inside the structreu should be the following: 
