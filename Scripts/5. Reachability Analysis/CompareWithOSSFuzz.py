@@ -5,17 +5,18 @@ from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from bs4 import BeautifulSoup
 
-# --- CONFIG ---
-input_file = r"FuzzabilityAnalysisOfDeepBugs\Data\commit_lines_output_withDates_GitHub_updated_GsutilUpdated.json"
-output_hits = r"FuzzabilityAnalysisOfDeepBugs\Data\coverage_hits.json"
+# Script compares removed lines with coverage reports to find hits where removed lines were covered by OSS-Fuzz.
+
+input_file = r"Data\commit_lines_output_withDates_GitHub_updated_GsutilUpdated.json"
+output_hits = r"Data\coverage_hits.json"
 MAX_WORKERS = 15   
 TIMEOUT = 20       # seconds for requests
 
-# --- Load input data ---
+#  Load input data 
 with open(input_file, "r", encoding="utf-8") as f:
     data = json.load(f)
 
-# --- Build coverage check tasks ---
+#  Build coverage check tasks 
 tasks = []
 for entry in data:
     project = entry.get("project", "")
@@ -74,7 +75,7 @@ for entry in data:
 
 print(f"📦 Created {len(tasks)} coverage check tasks.\n")
 
-# --- Worker function ---
+#  Worker function 
 def check_coverage(task):
     removed_lines = task.get("removed", [])
     urls = task["urls"]
@@ -124,7 +125,7 @@ def check_coverage(task):
 
     return None  # none of the URLs had coverage for removed lines
 
-# --- Run all tasks in parallel ---
+#  Run all tasks in parallel 
 hits = []
 
 with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -141,7 +142,7 @@ with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         except Exception as e:
             print(f"⚠️ Unexpected error: {e}")
 
-# --- Save results (only hits) ---
+#  Save results (only hits) 
 with open(output_hits, "w", encoding="utf-8") as f:
     json.dump(hits, f, indent=4)
 

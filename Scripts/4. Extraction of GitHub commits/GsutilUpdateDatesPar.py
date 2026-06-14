@@ -6,10 +6,10 @@ from pathlib import Path
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# ------------------ Locate gsutil ------------------
+
 # messed up while installing gsutil and was lazy, should find it in PATH or common install locations
-input_file = r'FuzzabilityAnalysisOfDeepBugs\Data\commit_lines_output_withDates_GitHub_updated.json'
-output_file = r'FuzzabilityAnalysisOfDeepBugs\Data\commit_lines_output_withDates_GitHub_updated_GsutilUpdated.json'
+input_file = r'Data\commit_lines_output_withDates_GitHub_updated.json'
+output_file = r'Data\commit_lines_output_withDates_GitHub_updated_GsutilUpdated.json'
 def get_gsutil_path():
     path = shutil.which("gsutil")
     if path:
@@ -26,7 +26,7 @@ def get_gsutil_path():
             return str(p)
     return None
 
-# ------------------ Get report folders ------------------
+# Get report folders 
 def get_report_folders(gsutil_path, project):
     """Return a sorted list of report folders for a given project."""
     bucket_path = f"gs://oss-fuzz-coverage/{project}/reports/"
@@ -53,7 +53,7 @@ def get_report_folders(gsutil_path, project):
         print(f"⚠️ Error fetching {project}: {e}")
         return []
 
-# ------------------ Adjust published date ------------------
+#  Adjust published date 
 def adjust_published_date(entry, available_dates):
     """If the published date folder doesn't exist, set to closest earlier folder."""
     if not available_dates:
@@ -71,7 +71,7 @@ def adjust_published_date(entry, available_dates):
         entry["published"] = datetime.strptime(new_folder, "%Y%m%d").strftime("%Y-%m-%dT%H:%M:%SZ")
     return entry
 
-# ------------------ Worker ------------------
+#  Worker 
 def process_project(entry, gsutil_path):
     project = entry.get("project")
     if not project:
@@ -79,7 +79,7 @@ def process_project(entry, gsutil_path):
     folders = get_report_folders(gsutil_path, project)
     return adjust_published_date(entry, folders)
 
-# ------------------ Main workflow ------------------
+#  Main workflow 
 def process_json(input_json, output_file, max_workers=8):
     gsutil_path = get_gsutil_path()
     if not gsutil_path:
@@ -118,6 +118,6 @@ def process_json(input_json, output_file, max_workers=8):
     print(f"\n All done! {done_count}/{total} projects processed successfully.")
     print(f"📄 Updated JSON saved to: {output_file}")
 
-# ------------------ Run ------------------
+#  Run 
 if __name__ == "__main__":
     process_json(input_file, output_file)

@@ -3,11 +3,12 @@ import requests
 from datetime import datetime, timedelta
 import time
 
-# --- CONFIG ---
-#Fix published tag if the github commit change date is different also subtracts one day for later use
-input_json = r"FuzzabilityAnalysisOfDeepBugs\Data\commit_lines_output_withDates_withFullPath.json"
-output_json = r"FuzzabilityAnalysisOfDeepBugs\Data\commit_lines_output_withDates_GitHub_updated.json"
-sleep_seconds = 0.5  # polite delay to avoid rate limits
+
+#Fix published tag if the github commit change date is different 
+
+input_json = r"Data\commit_lines_output_withDates_withFullPath.json"
+output_json = r"Data\commit_lines_output_withDates_GitHub_updated.json"
+sleep_seconds = 0.5  #  delay to avoid rate limits
 github_token = "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"  # replace with your GitHub token 
 
 headers = {}

@@ -5,8 +5,8 @@ import time
 
 #Gets the the changed code lines from github and also the  absolute path of the files
 
-input_json = r"FuzzabilityAnalysisOfDeepBugs\Data\github_commit_links_with_dates.json"
-output_json = r"FuzzabilityAnalysisOfDeepBugs\Data\commit_lines_output_withDates_withFullPath.json"
+input_json = r"Data\github_commit_links_with_dates.json"
+output_json = r"Data\commit_lines_output_withDates_withFullPath.json"
 sleep_seconds = 0.90
 
 # --- REGEX ---

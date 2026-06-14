@@ -2,10 +2,11 @@ import json
 import os
 from datetime import datetime
 
-# --- CONFIG ---
-json_a_path = r"FuzzabilityAnalysisOfDeepBugs\Data\commit_lines_output_withDates_GitHub_updated.json"
-json_b_path = r"FuzzabilityAnalysisOfDeepBugs\Data\coverage_hits_ordered.json"
-output_filtered_path = r"FuzzabilityAnalysisOfDeepBugs\Data\coverage_hits_ordered_under30.json"
+#Scrips Thresholds the dates by comparing their remidation date with coverage report dates, and keeps only those where the difference is under 30 days
+
+json_a_path = r"Data\commit_lines_output_withDates_GitHub_updated.json"
+json_b_path = r"Data\coverage_hits_ordered.json"
+output_filtered_path = r"Data\coverage_hits_ordered_under30.json"
 
 threshold_days = 30
 
@@ -17,7 +18,7 @@ def parse_date(date_str):
         return None
 
 
-# --- LOAD JSONS ---
+#  LOAD JSONS 
 with open(json_a_path, "r", encoding="utf-8") as f:
     json_a = json.load(f)
 
@@ -30,7 +31,7 @@ a_lookup = {entry["file"]: entry.get("published") for entry in json_a}
 # Store filtered B entries
 filtered_entries = []
 
-# --- PROCESS B STRUCTURE ---
+# PROCESS B STRUCTURE 
 for entry in json_b:
 
     source_name = entry.get("source")
@@ -55,14 +56,14 @@ for entry in json_b:
             "_difference_days": diff_days  # temporary for sorting
         })
 
-# --- SORT by difference_days ---
+#  SORT by difference_days 
 filtered_entries.sort(key=lambda x: x["_difference_days"])
 
 # Remove temporary field before output
 for e in filtered_entries:
     del e["_difference_days"]
 
-# --- SAVE RESULT ---
+#  SAVE RESULT 
 with open(output_filtered_path, "w", encoding="utf-8") as out:
     json.dump(filtered_entries, out, indent=4)
 

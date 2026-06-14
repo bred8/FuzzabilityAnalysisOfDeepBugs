@@ -1,7 +1,9 @@
 import json
 
-input_file = r'FuzzabilityAnalysisOfDeepBugs\Data\coverage_hits.json'
-output_file = r'FuzzabilityAnalysisOfDeepBugs\Data\coverage_hits_ordered.json'
+#Restructures JSON from a flat list of entries to a nested structure grouped by entries, with files under each source.
+
+input_file = r'Data\coverage_hits.json'
+output_file = r'Data\coverage_hits_ordered.json'
 
 def restructure_json(data):
     # Initialize the result dictionary

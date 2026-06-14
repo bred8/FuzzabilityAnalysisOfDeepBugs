@@ -2,18 +2,20 @@ import os
 import json
 import re
 
-# --- CONFIG ---
-#Extracts all the github links from 
-input_folder = r"FuzzabilityAnalysisOfDeepBugs\Data\MergedFixedDates"
-output_file = r"FuzzabilityAnalysisOfDeepBugs\Data\github_commit_links_with_dates.json"
 
-# --- REGEX: match GitHub commit URLs ---
+
+
+#Extracts all the github links from 
+input_folder = r"Data\MergedFixedDates"
+output_file = r"Data\github_commit_links_with_dates.json"
+
+#  match GitHub commit URLs 
 COMMIT_RE = re.compile(
     r"https://github\.com/[\w\.-]+/[\w\.-]+/commit/[a-f0-9]{6,40}",
     re.IGNORECASE
 )
 
-# --- Helper: recursively extract all strings ---
+# Helper: recursively extract all strings ---
 def extract_strings(obj):
     """Recursively extract all string values from a nested JSON structure."""
     if isinstance(obj, dict):
@@ -25,14 +27,14 @@ def extract_strings(obj):
     elif isinstance(obj, str):
         yield obj
 
-# --- MAIN ---
+# main processing loop
 results = []
 
 for root, _, files in os.walk(input_folder):
     for filename in files:
         if not filename.endswith(".json"):
             continue
-
+        
         full_path = os.path.join(root, filename)
         try:
             with open(full_path, "r", encoding="utf-8") as f:

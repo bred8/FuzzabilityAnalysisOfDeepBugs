@@ -6,10 +6,11 @@ import os
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 
-# ---------------------- CONFIG ----------------------
-PATH = r"FuzzabilityAnalysisOfDeepBugs\Data\coverage_hits_ordered_under30.json"
-github_fuzz_output = r"FuzzabilityAnalysisOfDeepBugs\Data\github_fuzz.json"
-github_not_fuzz_output = r"FuzzabilityAnalysisOfDeepBugs\Data\github_notFuzz.json"
+# Scripts filters out all projects found through fuzzing 
+
+PATH = r"Data\coverage_hits_ordered_under30.json"
+github_fuzz_output = r"Data\github_fuzz.json"
+github_not_fuzz_output = r"Data\github_notFuzz.json"
 # enter github token here if you have one
 GITHUB_TOKEN = "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"
 
@@ -48,7 +49,7 @@ if GITHUB_TOKEN and GITHUB_TOKEN != "...": # Check against placeholder
     DEFAULT_HEADERS["Authorization"] = f"token {GITHUB_TOKEN}"
 
 # HTML selectors for retrieving the commit message from HTML pages
-# FIX: Added 'pre' and '.js-details-container' to more reliably grab the full commit message body.
+
 HTML_SELECTORS = [
     ".js-details-container .f4.mb-3", # Targets the main container for commit title and body on GitHub
     "pre.commit-message",           # Often contains the entire raw commit message
