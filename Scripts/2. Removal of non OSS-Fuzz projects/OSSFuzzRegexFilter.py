@@ -5,9 +5,9 @@ import re
 #Alpha version of regex dont use this, use OSSFuzzRegexFilterBetter.py
 
 input_Path = r'FuzzabilityAnalysisOfDeepBugs\Data\OSV'
-Tag_Path = r''
-no_Tag_Path = r''
-oss_filter_path = r''
+Tag_Path = r'' 
+no_Tag_Path = r'' 
+oss_filter_path = r'' 
 
 
 with open(oss_filter_path, 'r') as filter_file:

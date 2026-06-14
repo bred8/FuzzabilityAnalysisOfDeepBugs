@@ -4,7 +4,6 @@ import re
 
 
 
-
 #Extracts all the github links from 
 input_folder = r"Data\MergedFixedDates"
 output_file = r"Data\github_commit_links_with_dates.json"

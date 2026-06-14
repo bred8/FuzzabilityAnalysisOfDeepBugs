@@ -12,7 +12,7 @@ PATH = r"Data\coverage_hits_ordered_under30.json"
 github_fuzz_output = r"Data\github_fuzz.json"
 github_not_fuzz_output = r"Data\github_notFuzz.json"
 # enter github token here if you have one
-GITHUB_TOKEN = "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"
+GITHUB_TOKEN = "" # <------------------------------------------------- REPLACE with your GitHub token
 
 FUZZ_KEYWORDS = [
 
