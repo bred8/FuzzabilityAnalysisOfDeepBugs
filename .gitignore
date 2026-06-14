@@ -1,0 +1,7 @@
+Data/*
+!Data/.gitkeep
+
+!Data/OSS-Fuzz/
+!Data/OSV/
+!Data/MergedDataset/
+
